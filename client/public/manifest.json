@@ -1,0 +1,15 @@
+{
+  "short_name": "Seqoio",
+  "name": "Seqoio todo and mind mapping",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "64x64"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

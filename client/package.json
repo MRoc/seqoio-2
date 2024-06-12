@@ -1,0 +1,70 @@
+{
+  "name": "seqoio",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@mroc/patcher": "^3.0.0",
+    "@mroc/react-div-contenteditable": "^1.0.18",
+    "@react-hook/window-size": "^3.0.7",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "browser-bunyan": "^1.6.3",
+    "bulma-scss": "^0.9.3",
+    "js-cookie": "^3.0.1",
+    "ot-json1": "^1.0.2",
+    "ramda": "^0.27.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-input-autosize": "^3.0.0",
+    "react-redux": "^7.2.5",
+    "react-scripts": "^4.0.3",
+    "redux": "^4.1.1",
+    "redux-min-shortcuts": "^1.4.2",
+    "reselect": "^4.0.0",
+    "sass": "^1.39.2",
+    "sharedb": "^1.9.2",
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src"
+  },
+  "proxy": "http://localhost:3000",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "deep-freeze": "^0.0.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.25.1",
+    "jest-fetch-mock": "^3.0.3",
+    "prettier": "^2.4.0"
+  }
+}

@@ -1,0 +1,13 @@
+@import "../index.scss";
+
+.NodeExpander {
+  background-color: none;
+}
+
+.NodeExpander:hover > .NodeExpanderPath {
+  stroke: $border-hover;
+}
+
+.NodeExpanderPath {
+  stroke: $border;
+}

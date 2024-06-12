@@ -1,0 +1,134 @@
+// Bulma variables
+
+$blue: #29D4FF
+$red: #FF297F
+$black: #333333
+$white: #FFFFFF
+$gray-light: #EEEEEE
+$family-sans-serif: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue'
+
+$primary: $blue
+$primary-dark: darken($primary, 15%)
+$primary-dark-2: darken($primary, 30%)
+
+$weight-light: 350
+$weight-normal: 350
+$weight-medium: 350
+$weight-semibold: 350
+$weight-bold: 450
+
+$text: $black
+
+$radius-small: 0px
+$radius: 0px
+$radius-large: 0px
+$column-gap: 1.5rem
+$block-spacing: 0.7rem
+
+$gap: 32px
+$desktop: 300px + (2 * $gap)
+$container-max-width: 350px
+$widescreen-enabled: false
+$fullhd-enabled: false
+
+$link: $primary
+$link-hover: $primary-dark
+
+$control-padding-vertical: 0px
+$control-height: 2em
+$control-line-height: 1em
+
+$button-hover-color: $black
+$button-focus-border-color: $primary
+$button-focus-box-shadow-size: 0 0 0 0
+
+$input-focus-border-color: $primary
+$input-shadow: 0 0 0 0
+$input-focus-box-shadow-size: 0 0 0 0
+
+$hr-height: 1px
+
+// Bulma imports
+
+// @import "../../../node_modules/bulma/bulma.sass"
+@import "../../../node_modules/bulma/sass/utilities/_all"
+@import "../../../node_modules/bulma/sass/base/_all"
+@import "../../../node_modules/bulma/sass/elements/_all.sass"
+@import "../../../node_modules/bulma/sass/elements/other.sass"
+@import "../../../node_modules/bulma/sass/elements/container.sass"
+@import "../../../node_modules/bulma/sass/elements/content.sass"
+@import "../../../node_modules/bulma/sass/elements/button.sass"
+@import "../../../node_modules/bulma/sass/form/shared.sass"
+@import "../../../node_modules/bulma/sass/form/input-textarea.sass"
+@import "../../../node_modules/bulma/sass/helpers/color.sass"
+@import "../../../node_modules/bulma/sass/helpers/flexbox.sass"
+@import "../../../node_modules/bulma/sass/helpers/typography.sass"
+@import "../../../node_modules/bulma/sass/helpers/visibility.sass"
+@import "../../../node_modules/bulma/sass/layout/footer.sass"
+@import "../../../node_modules/bulma/sass/layout/hero.sass"
+@import "../../../node_modules/bulma/sass/layout/section.sass"
+
+// Bulma fixes
+
+.button
+  font-weight: $weight-normal
+
+h1, h2, h3, h4, h5
+  font-weight: $weight-bold
+
+h1
+  font-size: 1.5em
+
+h2
+  font-size: 1.4em
+
+h3
+  font-size: 1.3em
+
+h4
+  font-size: 1.2em
+
+
+input
+  font-weight: $weight-normal
+
+a:active
+  color: $primary-dark-2
+
+hr
+  background-color: $grey-lighter
+
+// Custom styles for logo
+
+.logo > h1
+  color: $primary
+  font-size: 4rem
+  font-weight: 350
+  display: flex
+  align-items: center
+  justify-content: center
+  box-sizing: border-box
+
+.logo > h1 > span
+  margin-left: 12px
+  margin-top: -8px
+
+// Custom styles for animation
+
+.tree-animation
+  position: absolute
+  left: 0px
+  top: 0px
+  height: 100vh
+  width: 100vw
+  z-index: -1
+
+// Custom styles for containers
+
+.container
+  background-color: #FFFFFFAA
+  padding: 10px
+
+.container-large
+  max-width: 800px
+

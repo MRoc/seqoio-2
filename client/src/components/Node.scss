@@ -1,0 +1,17 @@
+@import "Variables.scss";
+
+.Node {
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  padding: 0px;
+  min-height: $line-height;
+  line-height: $line-height;
+  color: $black;
+  font-size: $font-size;
+}
+
+.Node > Div {
+  padding: 0px;
+  line-height: $line-height;
+}

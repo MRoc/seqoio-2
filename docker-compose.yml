@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+
+  db:
+    container_name: db
+    image: mongo:4
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - db:/data/db
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: app
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:3000:3000"
+    env_file: ./server/src/.env
+    environment:
+      - MONGODB_CONNECTION=mongodb://db:27017/seqoio
+    volumes:
+      - ./server/src:/app/server/src
+
+  client:
+    container_name: client
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    image: client
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:3001:3001"
+    environment:
+      - PORT=3001
+      - REACT_APP_LOGGING_LEVEL=debug
+      - REACT_APP_SHAREDB_DEBUG=true
+    volumes:
+      - ./client/src:/app/client/src
+
+volumes:
+  db:

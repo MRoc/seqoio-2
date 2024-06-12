@@ -1,0 +1,47 @@
+@import "../index.scss";
+
+input[type="checkbox"] {
+  appearance: none;
+  margin-left: 0px;
+  margin-right: 4px;
+  margin-top: ($line-height - $checkbox-size) / 2;
+  padding: 0px;
+  width: $checkbox-size;
+  height: $checkbox-size;
+  min-width: $checkbox-size;
+  border: 1px solid $border;
+}
+
+input[type="checkbox"]:hover {
+  border: 1px solid $border-hover;
+}
+
+input[type="checkbox"]:checked {
+  border: 1px solid $blue;
+  background-color: $blue;
+}
+
+input[type="checkbox"]:hover:checked {
+  border: 1px solid $blue-darker;
+  background-color: $blue-darker;
+}
+
+input[type="checkbox"]:disabled {
+  border: 1px solid $border;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "";
+  display: block;
+  position: absolute;
+  user-select: none;
+  border-color: $white;
+  border-width: 0px 2px 2px 0px;
+  border-style: solid;
+  width: 5px;
+  height: 8px;
+  margin-left: 3px;
+  margin-top: 0px;
+  transform: rotate(40deg);
+}
+

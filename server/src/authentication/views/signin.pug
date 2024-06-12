@@ -1,0 +1,21 @@
+extends layout.pug
+
+block title
+    title Sign in to Seqoio
+
+block content
+    h2(class="block is-flex is-justify-content-center") Sign in to Seqoio
+    if message && message.length > 0
+        div(class="has-text-danger block is-flex is-justify-content-center") #{message}
+    form(class = "block" action = "/authentication/email/signin" method = "POST")
+        input(name = "email" type = "text" required placeholder = "Email" class="input block is-fullwidth")
+        input(name = "password" type = "password" required placeholder = "Password" class="input block is-fullwidth")
+        button(type = "Submit" class="button block is-fullwidth") Sign in
+    div(class = "block is-flex is-justify-content-center") OR
+    button(onclick="location.href='/authentication/microsoft/signin'" type="button" class="button block is-fullwidth") Continue with Microsoft
+    button(onclick="location.href='/authentication/google/signin'" type="button" class="button block is-fullwidth") Continue with Google
+    hr
+    div(class = "block is-flex is-justify-content-center")
+        a(href="/authentication/email/forgot") Forgot password?
+        span &nbsp;
+        a(href="/authentication/email/signup") No account yet?

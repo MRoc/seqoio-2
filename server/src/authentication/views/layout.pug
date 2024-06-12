@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+    head
+        block title
+        link(rel="icon" href="/logo.svg" type="image/svg+xml")
+        meta(name="description" content="Seqoio is a way for collaborative brainstorming and problem solving")
+        meta(name="author" content="Seqoio")
+        style
+            include ../../../../client/public/main.css
+    body(class="is-fullheight")
+        canvas(class="tree-animation" id="tree-animation")
+        section(class="hero is-fullheight")
+            div(class="hero-body")
+                div(class="container")
+                    a(class = "block is-flex is-justify-content-center logo" href="/")
+                        h1
+                            img(src="/logo.svg" alt="Seqoio Logo" width="64" height="64")
+                            span Seqoio
+                    block content
+        footer.footer
+            .content.has-text-centered
+                p
+                    a(href='/authentication/signin') Sign-in
+                    |  | 
+                    a(href='/privacy') Privacy
+                    |  | 
+                    a(href='/terms') Terms & conditions
+                    |  | 
+                    a(href='/imprint') Imprint
+        script(src="/tree-animation.js")

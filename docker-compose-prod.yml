@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+
+  db:
+    container_name: db
+    image: mongo:4
+    restart: unless-stopped
+    volumes:
+      - db:/data/db
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: app
+    restart: unless-stopped
+    env_file: ../.env
+
+  nginx:
+    image: nginx:1
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/conf.d:/etc/nginx/conf.d
+
+volumes:
+  db:

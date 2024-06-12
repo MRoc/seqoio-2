@@ -1,0 +1,122 @@
+@import "components/Variables.scss";
+// Bulma variables
+
+$blue: #29d4ff;
+$red: #ff297f;
+$black: #333333;
+$white: #ffffff;
+$gray-light: #eeeeee;
+$family-sans-serif: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto",
+  "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue";
+
+$primary: $blue;
+$primary-dark: darken($primary, 15%);
+$primary-dark-2: darken($primary, 30%);
+
+$weight-light: 350;
+$weight-normal: 350;
+$weight-medium: 350;
+$weight-semibold: 350;
+$weight-bold: 350;
+
+$text: $black;
+
+$radius-small: 0px;
+$radius: 0px;
+$radius-large: 0px;
+$column-gap: 1.5rem;
+$block-spacing: 0.7rem;
+
+$gap: 32px;
+$desktop: 300px + (2 * $gap);
+$container-max-width: 350px;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+$link: $primary;
+$link-hover: $primary-dark;
+
+$control-padding-vertical: 0px;
+$control-height: 2em;
+$control-line-height: 1em;
+
+$button-hover-color: $black;
+$button-focus-border-color: $primary;
+$button-focus-box-shadow-size: 0 0 0 0;
+
+$input-focus-border-color: $primary;
+$input-shadow: 0 0 0 0;
+$input-focus-box-shadow-size: 0 0 0 0;
+
+$hr-height: 1px;
+
+// Bulma imports
+
+//@import "../node_modules/bulma/bulma.sass"
+@import "../node_modules/bulma-scss/utilities/_all.scss";
+@import "../node_modules/bulma-scss/base/_all.scss";
+@import "../node_modules/bulma-scss/elements/button.scss";
+@import "../node_modules/bulma-scss/elements/container.scss";
+@import "../node_modules/bulma-scss/elements/notification.scss";
+@import "../node_modules/bulma-scss/elements/other.scss";
+@import "../node_modules/bulma-scss/form/shared.scss";
+@import "../node_modules/bulma-scss/form/input-textarea.scss";
+@import "../node_modules/bulma-scss/helpers/_color.scss";
+@import "../node_modules/bulma-scss/helpers/flexbox.scss";
+@import "../node_modules/bulma-scss/helpers/visibility.scss";
+@import "../node_modules/bulma-scss/layout/hero.scss";
+@import "../node_modules/bulma-scss/layout/section.scss";
+
+// Bulma fixes - TODO consider PR
+
+.button {
+  font-weight: $weight-normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: $weight-normal;
+}
+
+input {
+  font-weight: $weight-normal;
+}
+
+a:active {
+  color: $primary-dark-2;
+}
+
+hr {
+  background-color: $grey-lighter;
+}
+
+// Custom styles for logo
+
+.logo > h1 {
+  color: $primary;
+  font-size: 4rem;
+  font-weight: 350;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.logo > h1 > span {
+  margin-left: 12px;
+  margin-top: -8px;
+}
+
+// Site fixes
+
+html{
+  min-height: 100%;
+  position: relative;
+}
+
+body{
+  height: 100%;
+}
