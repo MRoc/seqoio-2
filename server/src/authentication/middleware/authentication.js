@@ -242,141 +242,158 @@ module.exports = function (passport) {
     })
   );
 
-  passport.use(
-    new OIDCStrategy(
-      {
-        identityMetadata: config.authentication.microsoft.identityMetadata,
-        clientID: config.authentication.microsoft.clientID,
-        responseType: config.authentication.microsoft.responseType,
-        responseMode: config.authentication.microsoft.responseMode,
-        redirectUrl: config.authentication.microsoft.redirectUrl,
-        allowHttpForRedirectUrl:
-          config.authentication.microsoft.allowHttpForRedirectUrl,
-        clientSecret: config.authentication.microsoft.clientSecret,
-        validateIssuer: config.authentication.microsoft.validateIssuer,
-        isB2C: config.authentication.microsoft.isB2C,
-        issuer: config.authentication.microsoft.issuer,
-        passReqToCallback: config.authentication.microsoft.passReqToCallback,
-        scope: config.authentication.microsoft.scope,
-        loggingLevel: config.authentication.microsoft.loggingLevel,
-        nonceLifetime: config.authentication.microsoft.nonceLifetime,
-        nonceMaxAmount: config.authentication.microsoft.nonceMaxAmount,
-        useCookieInsteadOfSession:
-          config.authentication.microsoft.useCookieInsteadOfSession,
-        cookieEncryptionKeys:
-          config.authentication.microsoft.cookieEncryptionKeys,
-        clockSkew: config.authentication.microsoft.clockSkew,
-        loggingNoPII: false,
-      },
-      async (iss, sub, profile, accessToken, refreshToken, done) => {
-        const provider = "azure-ad";
-        const oid = profile._json.oid;
-        const email = profile._json.email;
-
-        let user = await UserModel.findOne({ provider, providerId: oid });
-        if (user) {
-          log.info("Azure-AD user found");
-          return done(null, user);
-        }
-
-        user = await UserModel.findOne({ email });
-        if (user) {
-          if (user.state === UserStates.VERIFY) {
-            log.warn("Waiting for email verification");
-            return done(null, false, {
-              message: texts.allreadyWaitingForEmailVerification,
-            });
-          } else {
-            log.warn("Known email");
-            return done(null, false, {
-              message: formatString(texts.wrongProvider, user.provider),
-            });
+  if (
+    !config.authentication.microsoft.clientID ||
+    !config.authentication.microsoft.clientSecret
+  ) {
+    console.log(
+      "Please provide AUTH_MICROSOFT_CLIENT_ID= and AUTH_MICROSOFT_CLIENT_SECRET= via .env if you want to enable Micosoft authentication"
+    );
+  } else {
+    passport.use(
+      new OIDCStrategy(
+        {
+          identityMetadata: config.authentication.microsoft.identityMetadata,
+          clientID: config.authentication.microsoft.clientID,
+          responseType: config.authentication.microsoft.responseType,
+          responseMode: config.authentication.microsoft.responseMode,
+          redirectUrl: config.authentication.microsoft.redirectUrl,
+          allowHttpForRedirectUrl:
+            config.authentication.microsoft.allowHttpForRedirectUrl,
+          clientSecret: config.authentication.microsoft.clientSecret,
+          validateIssuer: config.authentication.microsoft.validateIssuer,
+          isB2C: config.authentication.microsoft.isB2C,
+          issuer: config.authentication.microsoft.issuer,
+          passReqToCallback: config.authentication.microsoft.passReqToCallback,
+          scope: config.authentication.microsoft.scope,
+          loggingLevel: config.authentication.microsoft.loggingLevel,
+          nonceLifetime: config.authentication.microsoft.nonceLifetime,
+          nonceMaxAmount: config.authentication.microsoft.nonceMaxAmount,
+          useCookieInsteadOfSession:
+            config.authentication.microsoft.useCookieInsteadOfSession,
+          cookieEncryptionKeys:
+            config.authentication.microsoft.cookieEncryptionKeys,
+          clockSkew: config.authentication.microsoft.clockSkew,
+          loggingNoPII: false,
+        },
+        async (iss, sub, profile, accessToken, refreshToken, done) => {
+          const provider = "azure-ad";
+          const oid = profile._json.oid;
+          const email = profile._json.email;
+          let user = await UserModel.findOne({ provider, providerId: oid });
+          if (user) {
+            log.info("Azure-AD user found");
+            return done(null, user);
           }
-        }
-
-        log.info("Updating Azure-AD user");
-        log.info("Create Azure-AD user");
-        user = await UserModel.create({
-          oid,
-          state: UserStates.ACTIVE,
-          roles: DefaultRoles,
-          provider,
-          providerId: oid,
-          email,
-        });
-
-        await emails.sendWelcomeEmail(user.email);
-
-        done(null, user);
-      }
-    )
-  );
-
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: config.authentication.google.clientID,
-        clientSecret: config.authentication.google.clientSecret,
-        callbackURL: config.authentication.google.redirectUrl,
-        scope: config.authentication.google.scope,
-      },
-      async (accessToken, refreshToken, profile, done) => {
-        const provider = "google";
-        const oid = profile.id;
-        const email = profile._json.email;
-
-        let user = await UserModel.findOne({ provider, providerId: oid });
-        if (user) {
-          log.info("Google user found");
-          return done(null, user);
-        }
-
-        user = await UserModel.findOne({ email });
-        if (user) {
-          if (user.state === UserStates.VERIFY) {
-            log.warn("Waiting for email verification");
-            return done(null, false, {
-              message: texts.allreadyWaitingForEmailVerification,
-            });
-          } else {
-            log.warn("Known email");
-            return done(null, false, {
-              message: formatString(texts.wrongProvider, user.provider),
-            });
+          user = await UserModel.findOne({ email });
+          if (user) {
+            if (user.state === UserStates.VERIFY) {
+              log.warn("Waiting for email verification");
+              return done(null, false, {
+                message: texts.allreadyWaitingForEmailVerification,
+              });
+            } else {
+              log.warn("Known email");
+              return done(null, false, {
+                message: formatString(texts.wrongProvider, user.provider),
+              });
+            }
           }
+          log.info("Updating Azure-AD user");
+          log.info("Create Azure-AD user");
+          user = await UserModel.create({
+            oid,
+            state: UserStates.ACTIVE,
+            roles: DefaultRoles,
+            provider,
+            providerId: oid,
+            email,
+          });
+          await emails.sendWelcomeEmail(user.email);
+          done(null, user);
         }
+      )
+    );
+  }
 
-        log.info("Create Google user");
-        user = await UserModel.create({
-          oid,
-          state: UserStates.ACTIVE,
-          roles: DefaultRoles,
-          provider,
-          providerId: oid,
-          email,
-        });
+  if (
+    !config.authentication.google.clientID ||
+    !config.authentication.google.clientSecret
+  ) {
+    console.log(
+      "Please provide AUTH_GOOGLE_CLIENT_ID= and AUTH_GOOGLE_CLIENT_SECRET= via .env if you want to enable Google authentication"
+    );
+  } else {
+    passport.use(
+      new GoogleStrategy(
+        {
+          clientID: config.authentication.google.clientID,
+          clientSecret: config.authentication.google.clientSecret,
+          callbackURL: config.authentication.google.redirectUrl,
+          scope: config.authentication.google.scope,
+        },
+        async (accessToken, refreshToken, profile, done) => {
+          const provider = "google";
+          const oid = profile.id;
+          const email = profile._json.email;
 
-        await emails.sendWelcomeEmail(user.email);
+          let user = await UserModel.findOne({ provider, providerId: oid });
+          if (user) {
+            log.info("Google user found");
+            return done(null, user);
+          }
 
-        done(null, user);
-      }
-    )
-  );
+          user = await UserModel.findOne({ email });
+          if (user) {
+            if (user.state === UserStates.VERIFY) {
+              log.warn("Waiting for email verification");
+              return done(null, false, {
+                message: texts.allreadyWaitingForEmailVerification,
+              });
+            } else {
+              log.warn("Known email");
+              return done(null, false, {
+                message: formatString(texts.wrongProvider, user.provider),
+              });
+            }
+          }
 
-  const jwtOptions = {
-    jwtFromRequest: (req) => (req && req.cookies ? req.cookies.token : null),
-    secretOrKey: config.jwtSecret,
-  };
+          log.info("Create Google user");
+          user = await UserModel.create({
+            oid,
+            state: UserStates.ACTIVE,
+            roles: DefaultRoles,
+            provider,
+            providerId: oid,
+            email,
+          });
 
-  passport.use(
-    new JwtStrategy(jwtOptions, async (token, done) => {
-      try {
-        return done(null, { id: token.id, roles: token.roles });
-      } catch (error) {
-        done(error);
-      }
-    })
-  );
+          await emails.sendWelcomeEmail(user.email);
+
+          done(null, user);
+        }
+      )
+    );
+  }
+
+  if (!config.jwtSecret) {
+    console.log("Please provide AUTH_JWT_SECRET= via .env!");
+    process.exit(1);
+  } else {
+    const jwtOptions = {
+      jwtFromRequest: (req) => (req && req.cookies ? req.cookies.token : null),
+      secretOrKey: config.jwtSecret,
+    };
+    passport.use(
+      new JwtStrategy(jwtOptions, async (token, done) => {
+        try {
+          return done(null, { id: token.id, roles: token.roles });
+        } catch (error) {
+          done(error);
+        }
+      })
+    );
+  }
 
   return passport;
 };

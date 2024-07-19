@@ -28,8 +28,13 @@ npm run build
 
 3. Run the server:
 
+Modify the server/src/.env file with your secrets `SESSION_SECRET=` and `AUTH_JWT_SECRET=` are required and can be a long-ish random string. All others are optional.
+
+If you don't provide sendgrid API key then the emails are logged to console.
+
 ```
 cd server
+npm install
 npm start
 ```
 
@@ -41,7 +46,13 @@ npm start
 To run the Seqoio server in Docker instead of natively, simply run this:
 
 ```
-docker-compose -f ./docker-compose.yml up -d --build --force-recreate
+docker compose -f ./docker-compose.yml up -d --build --force-recreate
+```
+
+Afterwards run this to inspect the logs:
+
+```
+docker logs app
 ```
 
 ## Authentication
